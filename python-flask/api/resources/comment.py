@@ -1,12 +1,15 @@
 from flask import jsonify, request
 from flask_restful import Resource
 from model import db, Comment, Category, CommentSchema
+from flask_jwt_extended import jwt_required
 
 comments_schema = CommentSchema(many=True)
 comment_schema = CommentSchema()
 
 class CommentResource(Resource):
+    @jwt_required
     def get(self):
+        
         comments = Comment.query.all()
         comments = comments_schema.dump(comments).data
         return {"status":"success", "data":comments}, 200

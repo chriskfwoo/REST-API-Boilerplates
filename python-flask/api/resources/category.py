@@ -16,7 +16,7 @@ class CategoryResource(Resource):
         json_data = request.get_json(force=True)
         if not json_data:
                return {'message': 'No input data provided'}, 400
-        # Validate and deserialize input
+            # Validate and deserialize input
         data, errors = category_schema.load(json_data)
         if errors:
             return errors, 422
